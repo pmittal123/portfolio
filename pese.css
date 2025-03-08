@@ -1,9 +1,17 @@
 :root {
-    --bgcol: #000000;
+    --bgcol: #1493e7;
+    --tbgcol:#000000;
     --logocol: #ffffff;
-    --in-box: #ffffffd6;
+    --in-box: #131313;
     --accent: #2edcff;
-    --sub-box: #931414;
+    --secondary-accent: #ff4f79;
+    --sub-box: #1e1e1e;
+    --text-color: #ffffff;
+    --gradient: linear-gradient(45deg, var(--accent), var(--secondary-accent));
+
+    /* RGB values for rgba() usage */
+    --accent-rgb: 46, 220, 255;
+    --secondary-accent-rgb: 255, 79, 121;
 }
 
 /* === GENERAL STYLES === */
@@ -17,6 +25,7 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: 70px;
     color: #ffffff;
+    
 }
 
 body {
@@ -26,6 +35,9 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     padding-bottom: 200px;
+
+    background: var(--bgcol);
+    color: var(--text-color);
 }
 
 /* === HEADER (TOP-BAR) === */
@@ -35,65 +47,126 @@ body {
     align-items: center;
     height: 70px;
     width: 100%;
-    background-color: red;
+    background-color: rgb(0, 0, 0);
     padding: 0 2rem;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-}
-.nav-toggle {
-    display: none;
+    background-color: var(--tbgcol);
+
 }
 
+/* === NAVIGATION MENU === */
+.nav-toggle {
+    display: none;  /* Hide the checkbox */
+}
+
+/* Hamburger icon */
 .nav-toggle-label {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
     z-index: 101;
-    margin-left: auto; /* Push to right */
-    padding-right: 1rem;
 }
 
+/* Hamburger bars */
 .nav-toggle-label span {
     display: block;
-    width: 25px;
-    height: 2px;
+    width: 100%;
+    height: 3px;
     background-color: var(--logocol);
-    margin: 5px;
     transition: all 0.3s ease;
 }
 
-
-
-nav {
+/* Navigation menu */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Initially hidden */
+    width: 250px;
+    height: 100vh;
+    background-color: var(--bgcol);
     display: flex;
-    gap: 2rem;
-    transition: all 0.3s ease;
-    position: absolute;
-    right: 20px;
-    top: 25%;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+    gap: 20px;
+    transition: right 0.5s ease-in-out;
 }
 
-nav a {
+.nav-bar a {
     text-decoration: none;
-    font-size: 1rem;
-    color: #ffffff;
+    font-size: 1.2rem;
+    color: white;
+    padding: 10px;
+    transition: color 0.3s ease;
 }
 
-nav a:hover {
-    color: rgba(255, 255, 255, 0.464);
+.nav-bar a:hover {
+    color: var(--accent);
+}
+
+/* === ANIMATIONS & TOGGLE EFFECT === */
+.nav-toggle:checked ~ .nav-bar {
+    right: 0; /* Slide-in animation */
+}
+
+/* Transform hamburger into 'X' */
+.nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Optimization */
+@media screen and (max-width: 600px) {
+    .nav-bar {
+        width: 100%; /* Full width on smaller screens */
+    }
 }
 
 /* === LAYOUT STYLES === */
 .container {
     display: grid;
     grid-template-rows: repeat(3, auto);
-    margin: 130px auto 0 auto;
+    margin: 100px auto -200px auto;
     padding-bottom: 100px;
     width: 90%;
+    border-radius: 10px;
     text-align: center;
-    background-color: var(--sub-box);
+    background-color: transparent;
     color: #ffffff;
+}
+@keyframes elegant-glow {
+    0% { 
+        box-shadow: 0 0 100px rgba(36, 197, 18, 0.803), 0 0 20px rgba(173, 216, 230, 0.2), 0 0 40px rgba(255, 255, 255, 0.05);
+    }
+    25% { 
+        box-shadow: 0 0 150px rgba(48, 133, 206, 0.799), 0 0 24px rgba(192, 192, 192, 0.3), 0 0 50px rgba(211, 211, 211, 0.1);
+    }
+    50% { 
+        box-shadow: 0 0 105px rgba(224, 16, 16, 0.789), 0 0 30px rgba(224, 255, 255, 0.3), 0 0 60px rgba(255, 250, 240, 0.15);
+    }
+    75% { 
+        box-shadow: 0 0 102px rgba(124, 14, 75, 0.912), 0 0 28px rgba(173, 216, 230, 0.25), 0 0 55px rgba(192, 192, 192, 0.1);
+    }
+    100% { 
+        box-shadow: 0 0 100px rgb(213, 26, 141), 0 0 22px rgba(240, 248, 255, 0.2), 0 0 45px rgba(224, 255, 255, 0.1);
+    }
 }
 
 .info, .res, .ps {
@@ -102,28 +175,52 @@ nav a:hover {
     margin: 50px auto;
     padding: 20px;
     background-color: var(--in-box);
-    box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 12px;
+    min-height: 350px;
+    animation: elegant-glow 8s infinite alternate ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    background-color: var(--in-box);
+    color: var(--text-color);
+    animation: elegant-glow 8s infinite alternate ease-in-out;
 }
 
+/* Subtle hover effect for interaction */
+.info:hover, .res:hover, .ps:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.25), 0 0 36px rgba(173, 216, 230, 0.3), 0 0 70px rgba(255, 255, 255, 0.15);
+
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.6), 0 0 36px rgba(var(--secondary-accent-rgb), 0.6);
+
+    
+}
+
+/* === VIDEO BOX FIX === */
+
+
 .con {
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60%;
-    min-height: 300px;
-    margin: 40px auto 0 auto;
-    background-color: var(--bgcol);
+    width: 450px;  /* 400px video + 50px extra */
+    height: 260px; /* Reduced height */
+    margin: 15px auto; /* Adds margin around the container */
+    background-color: var(--in-box);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.box {
-    background-color: #ffffff;
-    height: 150px;
-    color: #000000;
+.con video {
+    background-color: #0000ff;
+    width: 400px;  /* Maintain 16:9 aspect ratio */
+    height: 225px;
     border-radius: 10px;
-    padding: 10px;
-    overflow-y: auto;
+    object-fit: cover; /* Ensures the video fully fits within the box */
 }
+
+
 
 /* === HEADINGS FIX === */
 .head, .headv, .heads {
@@ -131,18 +228,32 @@ nav a:hover {
     font-size: 30px;
     font-family: "Dangrek", sans-serif;
     width: 100%;
-    margin-bottom: 20px; /* Ensure spacing below */
+    margin-bottom: 20px;
     position: relative;
-    padding-bottom: 10px; /* Add space for the underline */
+    padding-bottom: 10px;
 }
 
-.head::after,
-.headv::after,
-.heads::after {
+.head::after, .headv::after, .heads::after {
     content: "";
     display: block;
     margin: 8px auto 0;
     width: 50%;
+    height: 8px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #ff0000, #0000ff);
+}
+.heads{
+    margin-bottom: -30px;
+}
+.p>.heads {
+    text-align: left;
+    margin: 20px auto 0 40px;
+}
+
+.p>.heads::after {
+    display: block;
+    margin: -10px auto -10px -10px;
+    width: 180px;
     height: 8px;
     border-radius: 8px;
     background: linear-gradient(to right, #ff0000, #0000ff);
@@ -160,6 +271,7 @@ nav a:hover {
     background: linear-gradient(45deg, #2196F3, #00BCD4);
     text-decoration: none;
     border-radius: 20px;
+    color: #ffffff;
     font-size: 14px;
     display: inline-flex;
     align-items: center;
@@ -174,20 +286,11 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* === VIDEO BOX FIX === */
-.con .i-box {
-    width: 100%;
-    max-width: 600px;
-    height: 250px;
-    background-color: #ffffff;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-/* === scrollbars==== */
-.box::-webkit-scrollbar{
+/* === Scrollbars === */
+.box::-webkit-scrollbar {
     width: 10px;
 }
+
 .box::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -204,83 +307,39 @@ nav a:hover {
     background: rgba(46, 220, 255, 0.5);
 }
 
-/** Responsive styles */
-@media screen and (max-width: 1024px) {
-    .container {
-        padding-bottom: 250px;
-    }
-
-    .nav-toggle-label {
-        display: block;
-    }
-
-    nav {
-        position: fixed;
-        top: 70px;
-        right: -100%;
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0;
-        transition: 0.3s ease;
-        background-color: var(--bgcol);
-    }
-
-    nav.active, .nav-toggle:checked ~ nav {
-        right: 0;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .info {
-        height: 550px;
-        top: 450px;
-        margin-bottom: 50px;
-    }
-
-    .nav-toggle-label {
-        display: block;
-    }
-
-    nav {
-        right: -100%;
-    }
-
-    .nav-toggle:checked ~ nav {
-        right: 0;
-    }
-}
-
+/* === MEDIA QUERIES === */
 @media screen and (max-width: 600px) {
-    .info {
-        height: 450px;
-        top: 450px;
-        padding: 1rem;
-        margin-bottom: 50px;
-    }
     
-    .nav-toggle-label {
-        display: block;
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    
-    nav {
-        position: fixed;
-        top: 70px;
-        right: -100%;
-        width: 100%;
-        height: auto;
-        background-color: var(--bgcol);
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0;
-        transition: 0.3s ease;
+    .con {
+        min-height: 350px;
+        width: 90%; /* Adjust width for small screens */
+        height: auto; /* Adjust height dynamically */
     }
 
-    nav.active, .nav-toggle:checked ~ nav {
-        right: 0;
+    .con video {
+        width: 100%; /* Make the video responsive */
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 600px) {
+    .info {
+        width: 85%;
+        min-height: 350px;
+    }
+    .con {
+        width: 90%;
+        min-height: 400px;
+    }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    .info {
+        width: 80%;
+        min-height: 400px;
+    }
+    .con {
+        width: 80%;
+        min-height: 500px;
     }
 }
