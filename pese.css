@@ -9,10 +9,11 @@
     --text-color: #ffffff;
     --gradient: linear-gradient(45deg, var(--accent), var(--secondary-accent));
 
-    /* RGB values for rgba() usage */
+    /* RGB values for rgba( ) usage */
     --accent-rgb: 46, 220, 255;
     --secondary-accent-rgb: 255, 79, 121;
 }
+
 
 /* === GENERAL STYLES === */
 * {
