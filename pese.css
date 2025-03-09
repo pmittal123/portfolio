@@ -237,12 +237,13 @@ body {
 .head::after, .headv::after, .heads::after {
     content: "";
     display: block;
-    margin: 8px auto 0;
-    width: 50%;
+    margin: -5px auto 0;
+    width: 20%;
     height: 8px;
     border-radius: 8px;
-    background: linear-gradient(to right, #ff0000, #0000ff);
+    background: linear-gradient(to right, #05a7b996, #00bbff);
 }
+
 .heads{
     margin-bottom: -30px;
 }
@@ -293,6 +294,8 @@ body {
     margin: -50px 10px unset 10px;
     padding:20px;
     text-align: start;
+    color: #7a7474;
+    font-weight: bolder;
 }
 .info .box{
     margin-top: -50px;
