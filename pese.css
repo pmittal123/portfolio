@@ -1,5 +1,5 @@
 :root {
-    --bgcol: #000000fc;
+    --bgcol: #000000e5;
     --tbgcol:#000000;
     --logocol: #ffffff;
     --in-box: #000000;
@@ -289,6 +289,15 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.box{
+    margin: -50px 10px unset 10px;
+    padding:20px;
+    text-align: start;
+}
+.info .box{
+    margin-top: -50px;
+}
+
 /* === Scrollbars === */
 .box::-webkit-scrollbar {
     width: 10px;
@@ -334,6 +343,10 @@ body {
         width: 90%;
         min-height: 400px;
     }
+    .con{
+        margin-top: -50px;
+        
+    }
 }
 
 @media screen and (max-width: 1024px) and (min-width: 769px) {
@@ -344,5 +357,52 @@ body {
     .con {
         width: 80%;
         min-height: 500px;
+    }
+}
+
+.text {
+    background-color: #121212; /* Black Theme */
+    color: #e0e0e0; /* Light Gray Text */
+    padding: 10px;
+    text-align: start;
+    border-radius: 8px;
+}
+
+.text h1, .text h2 {
+    color: #494b4b; /* Light Blue */
+}
+
+.text h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.text h2 {
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.text p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* === Responsive Styling === */
+@media screen and (max-width: 768px) {
+    .text {
+        padding: 15px;
+    }
+    
+    .text h1 {
+        font-size: 22px;
+    }
+    
+    .text h2 {
+        font-size: 18px;
+    }
+    
+    .text p {
+        font-size: 14px;
     }
 }
