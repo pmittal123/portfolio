@@ -234,6 +234,7 @@ body {
     padding-bottom: 10px;
 }
 
+
 .head::after, .headv::after, .heads::after {
     content: "";
     display: block;
