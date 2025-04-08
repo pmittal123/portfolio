@@ -182,7 +182,6 @@ body {
     color: var(--text-color);
 }
 
-/* Subtle hover effect for interaction */
 .info:hover, .res:hover, .ps:hover {
     animation: elegant-glow 8s infinite alternate ease-in-out;
     transform: translateY(-4px);
@@ -193,10 +192,6 @@ body {
 
     
 }
-
-/* === VIDEO BOX FIX === */
-
-
 .con {
     border-radius: 10px;
     display: flex;
