@@ -1360,6 +1360,7 @@ nav a:hover {
     .footer {
         top: 850px;
         width: 100%;
+        
     }
 
     .cp {
@@ -1470,6 +1471,7 @@ nav a:hover {
     }
 
     .proj {
+        height: 600px;
         width: 80%;
         top: 820px;
         left: 15%;
@@ -1479,6 +1481,10 @@ nav a:hover {
     }
     .projs{
         left: 3%;
+        top: 150px;
+    }
+    .search-container{
+        top: 50px;
     }
     .pese-button {
         width: 90%;
