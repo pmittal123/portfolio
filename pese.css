@@ -265,12 +265,12 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 450px;  /* 400px video + 50px extra */
-    height: 260px; /* Reduced height */
-    margin: 15px auto; /* Adds margin around the container */
+    width: 100%;
+    max-width: 800px;
+    margin: 15px auto;
     background-color: transparent;
-    border-radius: 10px;
-    overflow: hidden;
+    aspect-ratio: 16/9;
+    position: relative;
 }
 
 .con video {
@@ -387,14 +387,8 @@ body::after {
 @media screen and (max-width: 600px) {
     
     .con {
-        min-height: 350px;
-        width: 90%; /* Adjust width for small screens */
-        height: auto; /* Adjust height dynamically */
-    }
-
-    .con video {
-        width: 100%; /* Make the video responsive */
-        height: auto;
+        width: 95%;
+        margin: 10px auto;
     }
 }
 

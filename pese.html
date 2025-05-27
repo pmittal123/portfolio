@@ -35,7 +35,19 @@
                
                 <!-- <p class="headv" >VEDIO </p> -->
                 <div class="i-box" >
-                    <video class="intro"></video>
+                    <video 
+                        class="intro" 
+                        controls 
+                        preload="metadata" 
+                        controlsList="nodownload" 
+                        playsinline
+                        oncontextmenu="return false;"
+                    >
+                        <source src="img/intro.mp4" type="video/mp4">
+                        <source src="img/intro.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                   
                 </div>
             </div> <!-- Fixed: Closed the con div properly -->
             
@@ -388,6 +400,103 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.add('active');
             const contentId = tab.dataset.essay + '-content';
             document.getElementById(contentId).classList.add('active');
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const videos = document.querySelectorAll('.intro');
+    
+    videos.forEach(video => {
+        // Set initial volume
+        video.volume = 1.0;
+        
+        const box = video.closest('.i-box');
+        const controls = box.querySelector('.video-controls');
+        const volumeBtn = controls.querySelector('[data-action="volume"]');
+        
+        // Volume control
+        volumeBtn?.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                volumeBtn.querySelector('i').classList.replace('fa-volume-mute', 'fa-volume-up');
+            } else {
+                video.muted = true;
+                volumeBtn.querySelector('i').classList.replace('fa-volume-up', 'fa-volume-mute');
+            }
+        });
+
+        // Check if video has audio tracks
+        video.addEventListener('loadedmetadata', () => {
+            if (video.mozHasAudio || Boolean(video.webkitAudioDecodedByteCount) || Boolean(video.audioTracks?.length)) {
+                console.log('Video has audio');
+            } else {
+                console.warn('Video does not have audio');
+            }
+        });
+
+        // Error handling
+        video.addEventListener('error', (e) => {
+            console.error('Error loading video:', e);
+        });
+
+        // Play/Pause functionality
+        playBtn?.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playBtn.querySelector('i').classList.replace('fa-play', 'fa-pause');
+            } else {
+                video.pause();
+                playBtn.querySelector('i').classList.replace('fa-pause', 'fa-play');
+            }
+        });
+        
+        // Control buttons functionality
+        controls?.addEventListener('click', (e) => {
+            const button = e.target.closest('.control-button');
+            if (!button) return;
+            
+            const action = button.dataset.action;
+            switch(action) {
+                case 'play':
+                    if (video.paused) {
+                        video.play();
+                        button.querySelector('i').classList.replace('fa-play', 'fa-pause');
+                    } else {
+                        video.pause();
+                        button.querySelector('i').classList.replace('fa-pause', 'fa-play');
+                    }
+                    break;
+                case 'rewind':
+                    video.currentTime = Math.max(video.currentTime - 10, 0);
+                    break;
+                case 'forward':
+                    video.currentTime = Math.min(video.currentTime + 10, video.duration);
+                    break;
+            }
+        });
+        
+        // Update play button icon when video ends
+        video.addEventListener('ended', () => {
+            playBtn.querySelector('i').classList.replace('fa-pause', 'fa-play');
+        });
+        
+        // Double click for fullscreen
+        video.addEventListener('dblclick', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                video.requestFullscreen();
+            }
+        });
+        
+        // Pause other videos when one starts playing
+        video.addEventListener('play', () => {
+            videos.forEach(v => {
+                if (v !== video && !v.paused) {
+                    v.pause();
+                }
+            });
         });
     });
 });
